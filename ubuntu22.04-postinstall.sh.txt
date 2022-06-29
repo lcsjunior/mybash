@@ -145,9 +145,11 @@ sudo patchelf --add-needed /usr/lib/x86_64-linux-gnu/libserialport.so.0 /usr/lib
 mkdir -p ~/src
 wget https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash -O ~/src/git-completion.bash
 wget https://raw.githubusercontent.com/git/git/master/contrib/completion/git-prompt.sh -O ~/src/git-prompt.sh
-# .bashrc > PS1 > $(__git_ps1 " (%s)")
-# e.g. .../scripts (main *+)$
 
 cp ~/.bashrc ~/.bashrc.bak
 ln -s .mybashrc ~/.mybashrc && echo '. ~/.mybashrc' >> ~/.bashrc
-ln -s .my-private-vars ~/.my-private-vars && echo '. ~/.my-private-vars' >> ~/.bashrc
+
+# encpass.sh
+sudo curl https://raw.githubusercontent.com/ahnick/encpass.sh/master/encpass.sh -o /usr/local/bin/encpass.sh
+sudo chmod a+x /usr/local/bin/encpass.sh
+# https://github.com/plyint/encpass.sh#usage

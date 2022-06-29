@@ -3,6 +3,8 @@
 . ~/src/git-completion.bash
 . ~/src/git-prompt.sh
 export GIT_PS1_SHOWDIRTYSTATE=1
+# .bashrc > PS1 > $(__git_ps1 " (%s)")
+# e.g. .../scripts (main *+)$
 
 export PATH=$PATH:$HOME/.platformio/penv/bin
 
