@@ -1,0 +1,76 @@
+#!/bin/bash
+
+. ~/src/git-completion.bash
+. ~/src/git-prompt.sh
+export GIT_PS1_SHOWDIRTYSTATE=1
+
+export PATH=$PATH:$HOME/.platformio/penv/bin
+
+__reboot() {
+  echo 'Reboot? (y/n)' && read x && [[ "$x" == "y" ]] && /sbin/reboot
+}
+
+__continue_question() {
+  echo 'Are you sure? (y/n)' && read x && [[ "$x" == "y" ]]
+}
+
+add_serial_permission() {
+  # https://docs.arduino.cc/software/ide-v1/tutorials/Linux
+  # ls -l /dev/ttyACM*
+  # ls -l /dev/ttyUSB0
+  sudo usermod -a -G dialout $USER
+  __reboot
+}
+
+get_gw() {
+  gw_ip=`ip route | grep default | awk '{print $3}'`
+}
+
+lan_scan() {
+  get_gw
+  nmap -sn -T4 $gw_ip/24
+}
+
+mdns_scan() {
+  avahi-browse -a -t
+}
+
+fan() {
+  watch -n1 -d 'sensors | grep fan'
+}
+
+aqua() {
+  resp=$(curl -s 'http://esp32-aqua.local')
+  # echo $resp | jq '.'
+  echo $resp | niet . -f yaml
+  echo '   Time Zone ' $(date -d @$(echo $resp | niet '"tnow"'))
+  echo 'Next Trigger ' $(date -d @$(echo $resp | niet '"next"'))
+}
+
+rm_all_images() {
+  __continue_question && docker rmi -f $(docker images -aq)
+}
+
+rm_all_containers() {
+  __continue_question && docker rm -vf $(docker ps -aq)
+}
+
+tty_psql() {
+  docker start postgresql
+  docker exec -it postgresql psql -U admin -W
+}
+
+con_psql() {
+  docker start postgresql
+  psql -h localhost -p 5432 -U admin -W
+}
+
+tty_mongo() {
+  docker start mongodb
+  docker exec -it mongodb mongo -u admin -p
+}
+
+con_mongo() {
+  docker start mongodb
+  mongosh "mongodb://localhost:27017" --username admin
+}

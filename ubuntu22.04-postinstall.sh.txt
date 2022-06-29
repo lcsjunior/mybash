@@ -1,0 +1,147 @@
+#!/bin/bash
+
+sudo apt update
+sudo apt upgrade
+
+sudo apt install \
+linux-headers-generic \
+build-essential \
+dkms \
+git \
+curl \
+clang \
+net-tools \
+jq \
+nmap \
+tilix \
+gimp \
+avahi-discover \
+gnome-tweaks \
+synaptic \
+seahorse \
+vim \
+neofetch \
+lm-sensors \
+psensor \
+postgresql-client \
+ubuntu-wallpapers-focal \
+ubuntu-restricted-extras \
+chrome-gnome-shell \
+gnome-shell-extensions \
+dirmngr \
+dconf-cli \
+uuid-runtime \
+fonts-powerline \
+libreoffice \
+arduino
+
+# NumLockX
+sudo apt install numlockx
+echo 'if [ -x /usr/bin/X11/numlockx ]; then /usr/bin/X11/numlockx on fi
+exit 0' >> ~/.xinitrc
+
+# Driver for TP-Link TL-WN823N
+mkdir -p ~/src
+git clone https://github.com/clnhub/rtl8192eu-linux.git ~/src/rtl8192eu-linux
+cd ~/src/rtl8192eu-linux
+sudo ./install_wifi.sh
+
+# Driver for D-Link DWA-182 AC1200
+mkdir -p ~/src
+git clone https://github.com/morrownr/88x2bu-20210702.git ~/src/88x2bu-20210702
+cd ~/src/88x2bu-20210702
+sudo ./install-driver.sh
+
+# Libsecret
+sudo apt install libsecret-1-0 libsecret-1-dev
+cd /usr/share/doc/git/contrib/credential/libsecret
+sudo make
+git config --global credential.helper \
+  /usr/share/doc/git/contrib/credential/libsecret/git-credential-libsecret
+
+# Gogh (gnome-terminal and tilix)  >> Peppermint
+bash -c "$(wget -qO- https://git.io/vQgMr)"
+
+curl -sL https://raw.githubusercontent.com/wimpysworld/deb-get/main/deb-get | sudo -E bash -s install deb-get
+sudo deb-get install \
+google-chrome-stable \
+sublime-text \
+code \
+github-desktop \
+zoom \
+dropbox \
+dbeaver-ce \
+discord \
+balena-etcher-electron
+
+sudo apt install gnome-software gnome-software-plugin-flatpak flatpak
+flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+
+flatpak install flathub \
+org.gtk.Gtk3theme.Yaru-dark \
+com.getpostman.Postman \
+com.github.maoschanz.drawing \
+com.github.tchx84.Flatseal \
+org.gnome.meld \
+org.qbittorrent.qBittorrent \
+org.videolan.VLC \
+org.nmap.Zenmap
+
+sudo snap install \
+mqtt-explorer \
+yq
+
+# http://www.foxitsoftware.com/products/pdf-reader/
+tar -xf FoxitReader.enu.setup.2.4.4.0911.x64.run.tar.gz
+sudo ./'FoxitReader.enu.setup.2.4.4.0911(r057d814).x64.run'
+
+# Node.js
+https://github.com/nodesource/distributions
+sudo npm install yarn nodemon eslint -g
+
+# Python 3.10
+sudo apt install software-properties-common -y
+sudo add-apt-repository ppa:deadsnakes/ppa -y
+sudo apt install python3.10 python3-pip
+sudo pip install -U niet
+
+# Docker
+docker ps -a
+
+docker run --name postgresql -e POSTGRES_USER=admin -e POSTGRES_PASSWORD=admin -p 5432:5432 -v /data:/var/lib/postgresql/data -d postgres
+docker exec -it postgresql bash
+
+# https://www.mongodb.com/try/download/shell
+# https://www.mongodb.com/docs/mongodb-shell
+docker run --name mongodb -p 27017:27017 -e MONGO_INITDB_ROOT_USERNAME=admin -e MONGO_INITDB_ROOT_PASSWORD=admin -v data-vol:/data/db -d mongo
+docker exec -it mongodb bash
+mongo
+
+# https://github.com/teejee2008/timeshift
+sudo add-apt-repository -y ppa:teejee2008/timeshift
+sudo apt-get update
+sudo apt-get install timeshift
+
+# https://sam.hooke.me/note/2022/03/fixing-apt-key-deprecation/
+mkdir /root/.gnupg
+sudo apt update
+
+# https://github.com/ohmyzsh/ohmyzsh.git
+# sudo apt install zsh
+# simple
+
+# https://askubuntu.com/questions/1383529/visual-studio-code-and-arduino-ide-stopped-working
+sudo apt install libserialport0 patchelf
+sudo patchelf --add-needed /usr/lib/x86_64-linux-gnu/libserialport.so.0 /usr/lib/x86_64-linux-gnu/liblistSerialsj.so.1.4.0
+# https://raw.githubusercontent.com/espressif/arduino-esp32/gh-pages/package_esp32_index.json,https://arduino.esp8266.com/stable/package_esp8266com_index.json
+
+# https://git-scm.com/book/en/v2/Appendix-A%3A-Git-in-Other-Environments-Git-in-Bash
+mkdir -p ~/src
+wget https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash -O ~/src/git-completion.bash
+wget https://raw.githubusercontent.com/git/git/master/contrib/completion/git-prompt.sh -O ~/src/git-prompt.sh
+# .bashrc > PS1 > $(__git_ps1 " (%s)")
+# e.g. .../scripts (main *+)$
+
+cp ~/.bashrc ~/.bashrc.bak
+ln -s .mybashrc ~/.mybashrc && echo '. ~/.mybashrc' >> ~/.bashrc
+ln -s .my-private-vars ~/.my-private-vars && echo '. ~/.my-private-vars' >> ~/.bashrc
