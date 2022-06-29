@@ -74,6 +74,12 @@ dbeaver-ce \
 discord \
 balena-etcher-electron
 
+# https://packagecontrol.io/docs/syncing
+cd ~/.config/sublime-text/Packages/
+mkdir ~/Dropbox/Sublime
+mv User ~/Dropbox/Sublime/
+ln -s ~/Dropbox/Sublime/User
+
 sudo apt install gnome-software gnome-software-plugin-flatpak flatpak
 flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
 
