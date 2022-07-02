@@ -103,7 +103,7 @@ sudo ./'FoxitReader.enu.setup.2.4.4.0911(r057d814).x64.run'
 
 # Node.js
 https://github.com/nodesource/distributions
-sudo npm install yarn nodemon eslint -g
+sudo npm install yarn nodemon -g
 
 # Python 3.10
 sudo apt install software-properties-common -y
