@@ -35,3 +35,6 @@ npx sequelize-cli init
 
 # https://mongoosejs.com/docs/index.html
 npm install mongoose --save
+
+# http://www.passportjs.org/concepts/authentication/http-basic/
+
