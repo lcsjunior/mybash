@@ -21,6 +21,8 @@ synaptic \
 seahorse \
 vim \
 neofetch \
+duf \
+btop \
 lm-sensors \
 psensor \
 postgresql-client \
@@ -33,7 +35,9 @@ dconf-cli \
 uuid-runtime \
 fonts-powerline \
 libreoffice \
-arduino
+arduino \
+hardinfo \
+libcanberra-gtk-module
 
 # NumLockX
 sudo apt install numlockx
@@ -140,6 +144,7 @@ sudo apt update
 # https://askubuntu.com/questions/1383529/visual-studio-code-and-arduino-ide-stopped-working
 sudo apt install libserialport0 patchelf
 sudo patchelf --add-needed /usr/lib/x86_64-linux-gnu/libserialport.so.0 /usr/lib/x86_64-linux-gnu/liblistSerialsj.so.1.4.0
+# https://learn.sparkfun.com/tutorials/how-to-install-ch340-drivers/linux
 # https://raw.githubusercontent.com/espressif/arduino-esp32/gh-pages/package_esp32_index.json,https://arduino.esp8266.com/stable/package_esp8266com_index.json
 
 # https://git-scm.com/book/en/v2/Appendix-A%3A-Git-in-Other-Environments-Git-in-Bash
