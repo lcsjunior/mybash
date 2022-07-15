@@ -8,6 +8,7 @@ linux-headers-generic \
 build-essential \
 dkms \
 git \
+gh \
 curl \
 clang \
 net-tools \
@@ -37,7 +38,8 @@ fonts-powerline \
 libreoffice \
 arduino \
 hardinfo \
-libcanberra-gtk-module
+libcanberra-gtk-module \
+cheese
 
 # NumLockX
 sudo apt install numlockx
