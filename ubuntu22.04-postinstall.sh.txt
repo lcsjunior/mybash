@@ -37,6 +37,7 @@ uuid-runtime \
 fonts-powerline \
 libreoffice \
 arduino \
+gtkterm \
 hardinfo \
 libcanberra-gtk-module \
 cheese
