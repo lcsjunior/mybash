@@ -59,20 +59,20 @@ rm_all_containers() {
 
 tty_psql() {
   docker start postgresql
-  docker exec -it postgresql psql -U admin -W
+  docker exec -it postgresql psql -U $BASIC_AUTH_USER -W
 }
 
 con_psql() {
   docker start postgresql
-  psql -h localhost -p 5432 -U admin -W
+  psql -h localhost -p 5432 -U $BASIC_AUTH_USER -W
 }
 
 tty_mongo() {
   docker start mongodb
-  docker exec -it mongodb mongo -u admin -p
+  docker exec -it mongodb mongo -u $BASIC_AUTH_USER -p
 }
 
 con_mongo() {
   docker start mongodb
-  mongosh "mongodb://localhost:27017" --username admin
+  mongosh "mongodb://localhost:27017" --username $BASIC_AUTH_USER
 }
