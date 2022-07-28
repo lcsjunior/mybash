@@ -79,7 +79,8 @@ zoom \
 dropbox \
 dbeaver-ce \
 discord \
-balena-etcher-electron
+balena-etcher-electron \
+google-earth-pro-stable
 
 # https://packagecontrol.io/docs/syncing
 cd ~/.config/sublime-text/Packages/
